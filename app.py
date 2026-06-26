@@ -537,17 +537,84 @@ def extract_main_content(html_content, current_path):
         
         if not val or val == '.':
             classes = btn.get('class', [])
+            translated = None
             for cls in classes:
                 if cls in BUTTON_TRANSLATIONS:
                     translated = BUTTON_TRANSLATIONS[cls]
-                    if is_input:
-                        btn['value'] = translated
-                        # If the type was image or unspecified, convert to submit for standard styling
-                        if btn_type in ['image', '']:
-                            btn['type'] = 'submit'
-                    else:
-                        btn.string = translated
                     break
+            
+            # Substring fallback matching inside class names
+            if not translated:
+                for cls in classes:
+                    cls_lower = cls.lower()
+                    if "cerca" in cls_lower or "ricerca" in cls_lower:
+                        translated = "Cerca"
+                    elif "stampa" in cls_lower:
+                        translated = "Stampa ⎙"
+                    elif "salva" in cls_lower:
+                        translated = "Salva"
+                    elif "conferma" in cls_lower:
+                        translated = "Conferma"
+                    elif "annulla" in cls_lower:
+                        translated = "Annulla"
+                    elif "indietro" in cls_lower:
+                        translated = "Indietro"
+                    elif "prosegui" in cls_lower:
+                        translated = "Prosegui ➔"
+                    elif "avanti" in cls_lower:
+                        translated = "Avanti ➔"
+                    elif "invia" in cls_lower:
+                        translated = "Invia ➔"
+                    elif "inserisci" in cls_lower:
+                        translated = "Inserisci"
+                    elif "modifica" in cls_lower:
+                        translated = "Modifica"
+                    elif "calcola" in cls_lower:
+                        translated = "Calcola"
+                    elif "seleziona" in cls_lower:
+                        translated = "Seleziona"
+                    if translated:
+                        break
+            
+            # Substring fallback matching inside image src attribute
+            if not translated:
+                src_val = btn.get("src", "")
+                if src_val:
+                    src_lower = src_val.lower()
+                    if "cerca" in src_lower or "ricerca" in src_lower:
+                        translated = "Cerca"
+                    elif "stampa" in src_lower:
+                        translated = "Stampa ⎙"
+                    elif "salva" in src_lower:
+                        translated = "Salva"
+                    elif "conferma" in src_lower:
+                        translated = "Conferma"
+                    elif "annulla" in src_lower:
+                        translated = "Annulla"
+                    elif "indietro" in src_lower:
+                        translated = "Indietro"
+                    elif "prosegui" in src_lower:
+                        translated = "Prosegui ➔"
+                    elif "avanti" in src_lower:
+                        translated = "Avanti ➔"
+                    elif "invia" in src_lower:
+                        translated = "Invia ➔"
+                    elif "inserisci" in src_lower:
+                        translated = "Inserisci"
+                    elif "modifica" in src_lower:
+                        translated = "Modifica"
+                    elif "calcola" in src_lower:
+                        translated = "Calcola"
+                    elif "seleziona" in src_lower:
+                        translated = "Seleziona"
+
+            if translated:
+                if is_input:
+                    btn["value"] = translated
+                    if btn_type in ["image", ""]:
+                        btn["type"] = "submit"
+                else:
+                    btn.string = translated
                         
     return str(content_block)
 
