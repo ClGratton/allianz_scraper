@@ -73,20 +73,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     padding: 0 !important;
                 }
                 .operation${dash}wrapper .category${dash}card {
-                    min${dash}height: auto !important;
-                    padding: 0.75rem 1rem !important;
+                    min${dash}height: 80px !important;
+                    height: 80px !important;
+                    padding: 0.5rem 1rem !important;
                     gap: 1rem !important;
                 }
                 .operation${dash}wrapper .category${dash}card p {
                     display: none !important;
                 }
                 .operation${dash}wrapper .category${dash}icon${dash}wrapper {
-                    width: 40px !important;
-                    height: 40px !important;
-                    font${dash}size: 1.25rem !important;
+                    width: 44px !important;
+                    height: 44px !important;
+                    font${dash}size: 1.5rem !important;
                 }
                 .operation${dash}wrapper .category${dash}card h3 {
-                    font${dash}size: 1rem !important;
+                    font${dash}size: 1.1rem !important;
                     margin: 0 !important;
                 }
             }
@@ -144,12 +145,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (rightTd) {
                     const tr = rightTd.parentElement;
                     if (tr && tr.cells.length >= 3) {
+                        const layoutTable = tr.closest('table');
+                        if (layoutTable) {
+                            layoutTable.style.setProperty("display", "block", "important");
+                            
+                            // Style all other rows in this layout table to prevent column width inheritance
+                            Array.from(layoutTable.querySelectorAll('tr')).forEach(row => {
+                                if (row !== tr) {
+                                    row.style.setProperty("display", "block", "important");
+                                    Array.from(row.cells).forEach(cell => {
+                                        cell.style.setProperty("display", "block", "important");
+                                        cell.style.setProperty("width", "100%", "important");
+                                    });
+                                }
+                            });
+                        }
+                        
                         tr.style.setProperty("display", "flex", "important");
                         tr.style.setProperty("flex" + dash + "direction", "column" + dash + "reverse", "important");
                         
+                        // Force all child tables inside the layout columns to span 100%
+                        tr.querySelectorAll('table').forEach(tbl => {
+                            tbl.style.setProperty("width", "100%", "important");
+                        });
+                        
                         const cells = Array.from(tr.cells);
+                        cells[0].style.setProperty("display", "block", "important");
                         cells[0].style.setProperty("width", "100%", "important");
                         cells[1].style.setProperty("display", "none", "important");
+                        cells[2].style.setProperty("display", "block", "important");
                         cells[2].style.setProperty("width", "100%", "important");
                         cells[2].style.setProperty("margin" + dash + "bottom", "1.5rem", "important");
                     }
