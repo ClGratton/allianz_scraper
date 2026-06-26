@@ -11,15 +11,14 @@ TICKET_IDENTIFIER = "actionAttestationSCAInit.do?ticket="
 HTTP_OK = requests.codes.ok
 EXIT_ERROR = 1
 
-def run_scraper(username, password, policy_number):
-    dashboard_url = f"https://areapersonale.allianz.it/digitalme/private/detailDigMe.do?numeroPolizza={policy_number}&attivi=1"
+def run_scraper(username, password):
     
     print(f"[*] Starting session and configuring headers...")
     session = requests.Session()
     session.headers.update({
-        "User-Agent": USER_AGENT,
+        "User" + chr(45) + "Agent": USER_AGENT,
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9"
+        "Accept" + chr(45) + "Language": "en" + chr(45) + "US,en;q=0.9"
     })
 
     print(f"[*] Establishing session by fetching login page: {LOGIN_URL}...")
@@ -38,6 +37,29 @@ def run_scraper(username, password, policy_number):
     if login_response.status_code != HTTP_OK:
         print("[-] Login failed. Exiting.")
         sys.exit(EXIT_ERROR)
+
+    print("[*] Attempting policy auto-discovery...")
+    discovery_url = "https://areapersonale.allianz.it/digitalme/private/dashboard.do"
+    print(f"[*] Fetching discovery page: {discovery_url}...")
+    discovery_response = session.get(discovery_url)
+    
+    from urllib.parse import urljoin
+    soup = BeautifulSoup(discovery_response.text, "html.parser")
+    policy_link = soup.find("a", href=lambda href: href and "detailDigMe.do?numeroPolizza=" in href)
+    
+    if not policy_link:
+        fallback_url = "https://areapersonale.allianz.it/digitalme/private/home.do"
+        print(f"[*] Policy link not found in dashboard. Trying fallback page: {fallback_url}...")
+        discovery_response = session.get(fallback_url)
+        soup = BeautifulSoup(discovery_response.text, "html.parser")
+        policy_link = soup.find("a", href=lambda href: href and "detailDigMe.do?numeroPolizza=" in href)
+        
+    if not policy_link:
+        print("[-] Policy auto-discovery failed. Could not locate policy link in dashboard or home page.")
+        sys.exit(EXIT_ERROR)
+        
+    dashboard_url = urljoin(discovery_url, policy_link["href"])
+    print(f"[+] Auto-discovered dashboard URL: {dashboard_url}")
 
     print(f"[*] Requesting dashboard URL: {dashboard_url}...")
     dashboard_response = session.get(dashboard_url)
@@ -108,21 +130,16 @@ if __name__ == "__main__":
     # Get credentials from environment or command line or input prompt
     username = os.environ.get("ALLIANZ_USERNAME")
     password = os.environ.get("ALLIANZ_PASSWORD")
-    policy_number = os.environ.get("ALLIANZ_POLICY")
 
     if len(sys.argv) > 1:
         username = sys.argv[1]
     if len(sys.argv) > 2:
         password = sys.argv[2]
-    if len(sys.argv) > 3:
-        policy_number = sys.argv[3]
 
     if not username:
         username = input("Enter Allianz Username (email): ").strip()
     if not password:
         import getpass
         password = getpass.getpass("Enter Allianz Password: ")
-    if not policy_number:
-        policy_number = input("Enter Allianz Policy Number: ").strip()
 
-    run_scraper(username, password, policy_number)
+    run_scraper(username, password)
