@@ -11,9 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
             @media (max${dash}width: 768px) {
                 .dashboard${dash}wrapper {
                     margin${dash}top: 3.5rem !important;
+                    width: 100% !important;
+                    max${dash}width: 100% !important;
+                    overflow${dash}x: hidden !important;
                 }
                 .container {
                     margin${dash}top: 3.5rem !important;
+                }
+                .op${dash}content${dash}container {
+                    width: 100% !important;
+                    max${dash}width: 100% !important;
+                    overflow${dash}x: auto !important;
+                    display: block !important;
                 }
             }
         `;
