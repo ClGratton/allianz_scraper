@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 transform: translateY(1px) !important;
                 ${dash}webkit${dash}transform: translateY(1px) !important;
             }
+            .opcontent table, 
+            .op${dash}content${dash}container table {
+                width: 100% !important;
+            }
             @media (max${dash}width: 768px) {
                 .dashboard${dash}wrapper {
                     margin${dash}top: 3.5rem !important;
@@ -72,21 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     margin${dash}bottom: 1rem !important;
                     padding: 0 !important;
                 }
-                .operation${dash}wrapper .category${dash}card {
+                body.operation${dash}page .category${dash}card {
                     min${dash}height: 80px !important;
                     height: 80px !important;
                     padding: 0.5rem 1rem !important;
                     gap: 1rem !important;
                 }
-                .operation${dash}wrapper .category${dash}card p {
+                body.operation${dash}page .category${dash}card p {
                     display: none !important;
                 }
-                .operation${dash}wrapper .category${dash}icon${dash}wrapper {
+                body.operation${dash}page .category${dash}icon${dash}wrapper {
                     width: 44px !important;
                     height: 44px !important;
                     font${dash}size: 1.5rem !important;
                 }
-                .operation${dash}wrapper .category${dash}card h3 {
+                body.operation${dash}page .category${dash}card h3 {
                     font${dash}size: 1.1rem !important;
                     margin: 0 !important;
                 }
@@ -102,6 +106,47 @@ document.addEventListener("DOMContentLoaded", () => {
                 opcontent.classList.add("detail" + dash + "card");
             }
         }
+
+        // Unwrap nested html, body, and outer td tags inside opcontent
+        const sanitizeOpcontent = () => {
+            const opcontent = document.querySelector(".opcontent");
+            if (!opcontent) return;
+            
+            const nestedBodys = Array.from(opcontent.querySelectorAll('body'));
+            nestedBodys.forEach(body => {
+                const parent = body.parentNode;
+                if (parent) {
+                    const frag = document.createDocumentFragment();
+                    while (body.firstChild) {
+                        frag.appendChild(body.firstChild);
+                    }
+                    parent.replaceChild(frag, body);
+                }
+            });
+            
+            const nestedHtmls = Array.from(opcontent.querySelectorAll('html'));
+            nestedHtmls.forEach(html => {
+                const parent = html.parentNode;
+                if (parent) {
+                    const frag = document.createDocumentFragment();
+                    while (html.firstChild) {
+                        frag.appendChild(html.firstChild);
+                    }
+                    parent.replaceChild(frag, html);
+                }
+            });
+            
+            const children = Array.from(opcontent.children);
+            children.forEach(child => {
+                if (child.tagName.toLowerCase() === 'td') {
+                    const frag = document.createDocumentFragment();
+                    while (child.firstChild) {
+                        frag.appendChild(child.firstChild);
+                    }
+                    opcontent.replaceChild(frag, child);
+                }
+            });
+        };
 
         // Align radio buttons and checkboxes with adjacent text node
         const alignInputs = () => {
@@ -149,8 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (layoutTable) {
                             layoutTable.style.setProperty("display", "block", "important");
                             
-                            // Style all other rows in this layout table to prevent column width inheritance
-                            Array.from(layoutTable.querySelectorAll('tr')).forEach(row => {
+                            // Style only direct child rows of this layout table to prevent nested table rows pollution
+                            Array.from(layoutTable.rows).forEach(row => {
                                 if (row !== tr) {
                                     row.style.setProperty("display", "block", "important");
                                     Array.from(row.cells).forEach(cell => {
@@ -182,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         const handleDomUpdates = () => {
+            sanitizeOpcontent();
             alignInputs();
             rearrangeLayout();
         };
