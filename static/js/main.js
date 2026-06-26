@@ -43,17 +43,21 @@ document.addEventListener("DOMContentLoaded", () => {
                     width: 100% !important;
                     table${dash}layout: fixed !important;
                     word${dash}wrap: break${dash}word !important;
-                    word${dash}break: break${dash}all !important;
+                    word${dash}break: normal !important;
                 }
                 .opcontent th, 
                 .opcontent td,
                 .op${dash}content${dash}container th,
-                .op${dash}content${dash}container td {
+                .op${dash}content${dash}container td,
+                .opcontent td input,
+                .opcontent td select,
+                .op${dash}content${dash}container td input,
+                .op${dash}content${dash}container td select {
                     white${dash}space: normal !important;
                     word${dash}wrap: break${dash}word !important;
-                    word${dash}break: break${dash}all !important;
+                    word${dash}break: normal !important;
                     padding: 0.5rem 0.25rem !important;
-                    font${dash}size: 0.8rem !important;
+                    font${dash}size: 0.6rem !important;
                 }
                 .searchBody, 
                 .searchBody > tbody > tr, 
@@ -67,6 +71,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 .searchBody > tr > td {
                     margin${dash}bottom: 1rem !important;
                     padding: 0 !important;
+                }
+                .operation${dash}wrapper .category${dash}card {
+                    min${dash}height: auto !important;
+                    padding: 0.75rem 1rem !important;
+                    gap: 1rem !important;
+                }
+                .operation${dash}wrapper .category${dash}card p {
+                    display: none !important;
+                }
+                .operation${dash}wrapper .category${dash}icon${dash}wrapper {
+                    width: 40px !important;
+                    height: 40px !important;
+                    font${dash}size: 1.25rem !important;
+                }
+                .operation${dash}wrapper .category${dash}card h3 {
+                    font${dash}size: 1rem !important;
+                    margin: 0 !important;
                 }
             }
         `;
@@ -114,10 +135,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         };
-        alignInputs();
+
+        const rearrangeLayout = () => {
+            const ths = Array.from(document.querySelectorAll('th.sectionTitle'));
+            const prevTh = ths.find(th => th.textContent.trim() === 'Dati Previdenziali');
+            if (prevTh) {
+                const rightTd = prevTh.closest('td');
+                if (rightTd) {
+                    const tr = rightTd.parentElement;
+                    if (tr && tr.cells.length >= 3) {
+                        tr.style.setProperty("display", "flex", "important");
+                        tr.style.setProperty("flex" + dash + "direction", "column" + dash + "reverse", "important");
+                        
+                        const cells = Array.from(tr.cells);
+                        cells[0].style.setProperty("width", "100%", "important");
+                        cells[1].style.setProperty("display", "none", "important");
+                        cells[2].style.setProperty("width", "100%", "important");
+                        cells[2].style.setProperty("margin" + dash + "bottom", "1.5rem", "important");
+                    }
+                }
+            }
+        };
+
+        const handleDomUpdates = () => {
+            alignInputs();
+            rearrangeLayout();
+        };
+
+        handleDomUpdates();
         
         // Listen to DOM mutations for dynamic AJAX pages load
-        const observer = new MutationObserver(alignInputs);
+        const observer = new MutationObserver(handleDomUpdates);
         observer.observe(document.body, { childList: true, subtree: true });
     })();
 
