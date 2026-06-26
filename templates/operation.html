@@ -92,13 +92,9 @@
             </details>
             {% endif %}
 
-            {% if show_content_card %}
-            <div class="detail-card op-content-container">
+            <div class="opcontent" card="{{ show_content_card }}">
                 {{ content | safe }}
             </div>
-            {% else %}
-                {{ content | safe }}
-            {% endif %}
         {% endif %}
     </div>
 

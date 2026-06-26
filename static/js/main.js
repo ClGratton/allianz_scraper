@@ -18,15 +18,37 @@ document.addEventListener("DOMContentLoaded", () => {
                 .container {
                     margin${dash}top: 3.5rem !important;
                 }
-                .op${dash}content${dash}container {
+                .opcontent, .op${dash}content${dash}container {
                     width: 100% !important;
                     max${dash}width: 100% !important;
                     overflow${dash}x: auto !important;
                     display: block !important;
                 }
+                .searchBody, 
+                .searchBody > tbody > tr, 
+                .searchBody > tbody > tr > td, 
+                .searchBody > tr, 
+                .searchBody > tr > td {
+                    display: block !important;
+                    width: 100% !important;
+                }
+                .searchBody > tbody > tr > td,
+                .searchBody > tr > td {
+                    margin${dash}bottom: 1rem !important;
+                    padding: 0 !important;
+                }
             }
         `;
         document.head.appendChild(style);
+
+        // Dynamically add wrapper styles
+        const opcontent = document.querySelector(".opcontent");
+        if (opcontent) {
+            opcontent.classList.add("op" + dash + "content" + dash + "container");
+            if (opcontent.getAttribute("card") === "True") {
+                opcontent.classList.add("detail" + dash + "card");
+            }
+        }
     })();
 
     const loginForm = document.getElementById("login-form");
