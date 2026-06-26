@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+ 
+<html dir="ltr" lang="it" id="flyout">
+
+<head>
+	<!-- SERVER: digitserv-aznow-areepersonali-59fb5557dc-z9zf8 | ENV: PROD | Build: 5 June 2026 15:47 --><!-- Allianz - Master templates-->
+
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Dettaglio Polizze</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+
+	<link rel="stylesheet" href="/digitalme/assets/bootstrap-dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/digitalme/assets/style/custom.css" >
+	<link rel="stylesheet" href="/digitalme/assets/style/style.css" >
+	<link rel="stylesheet" href="/digitalme/assets/style/guide_line.css" >
+
+	<link rel="stylesheet" href="/digitalme/assets/slick/slick.css">
+	<link rel="stylesheet" href="/digitalme/assets/slick/slick-theme.css">
+
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="/digitalme/assets/datepicker/custom/datepicker.allianz.css" type="text/css" media="screen, projection">
+	<link rel="shortcut icon" href="/digitalme/assets/img/favicon.ico">
+
+	<!-- jquery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+	<!-- jquery ui-->
+	<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+	<script src="/digitalme/assets/js/jquery.blockUI.js"></script>
+	<script src="/digitalme/assets/datepicker/i18n/datepicker-it.js"></script>
+
+	<!-- bootstrap -->
+    <script src="/digitalme/assets/bootstrap-dist/js/bootstrap.bundle.js"></script>
+
+	<!-- altre lib -->
+    <script type="text/javascript" src="/digitalme/assets/slick/slick.min.js"></script>
+    <script src="/digitalme/assets/js/ap.js"></script>
+	<script src="/digitalme/assets/js/paginationTable.js"></script>
+
+	<!-- tab accordion collapse  -->
+        <script src="/digitalme/assets/js/bootstrap-tabcollapse.js"></script>
+
+	<style>
+		.obfuscate {
+		  -webkit-text-security: disc;
+		  overflow-wrap: break-word;
+		}
+    </style>
+
+    <script src="//assets.adobedtm.com/dd4adce84cad/369b3644dc6d/launch-f410c6f31e75.min.js" async>
+    </script>
+
+    <script>
+        var pageURL = $(location).attr("href");
+        var array = pageURL.split("/");
+        var section = array[2];
+        var subSection = array[3];
+        var subSubSection = array[4];
+        var previousPage = document.referrer;
+        
+            digitalData = {
+                'pagename':'dettaglio_polizze',
+                'url':pageURL,
+                '2_livello': section,
+                '3_livello': subSection,
+                '4_livello': subSubSection,
+                'env_channel':'desktop',
+                'enviroment':'production',
+                'section':'area_personale',
+                'sub_section':'scheda_polizza',
+                'previous_page':previousPage,
+                'tipologia_utente':'utente',
+                'user_Id':'b92c2edfcff83c40f29f38ad7e21180d77fd74904a04540575e0f489557fe5ed',
+                'abilitato_offerte':'',
+                'otp_attivo':'',
+                'agenzia_riferimento':'elsa_srl',
+                'polizze':'[{"numeroPolizza":"6609273","nomePolizza":"insieme","idPolizza":"AICX001","dataScadenza":"","prezzo":"","nomeArea":"previdenza","moduli":"","giorniScadenza":"","privatoImpresa":"privato"}]',
+                'cap':'33041',
+                'provincia':'UD',
+                'polizze_attive':'insieme',
+                'ambiti_attivi_polizze':'previdenza-insieme'
+            }
+        </script>
+
+
+<!-- fine integrazione head Allianz.it -->
+
+</head>
+
+<body id="top">
+	<html>
+	<head>
+		<script src="/digitalme/assets/js/overlay2.js"></script>
+		<link media="all" type="text/css" href="/digitalme/assets/style/overlay2.css" rel="stylesheet">
+	</head>
+	<!-- div per modale -->
+	<div class="overlay" id="overlay"></div>
+	<div id="box" class="otp-container" style="padding-left: 0px !important;">
+	    <div class="c-popup__header">
+			<span class="c-popup__close c-icon c-icon--close chiudi" data-dismiss="modal" aria-label="Close" tabindex="0"></span>
+		</div>
+		<div id="contenutoModale" class="container js-popup" role="dialog" tabindex="-1" style="padding-right: 0px; padding-left: 0px;"></div>
+	</div>
+</html>
+
+<div style="display:none"><img src="/digitalme/assets/img/loader.gif" /></div>
+<!-- disservizio -->
+	<!-- modale OTP -->
+	<div id="fnd" style="display: none;">
+	<br><br>
+	<p>
+		Per eseguire la funzionalità è necessario aver attivato il servizio di firma elettronica (OTP - One Time Password).
+		<br/>
+		Per attivarlo contatta il tuo intermediario.
+	</p>
+	<div class="buttons">
+		<input class="btn" type="button" value="CHIUDI" name="chiudi" onClick="chiudiModale();"/>	
+	</div>
+</div>
+<!-- modale Chiedi all’Agente -->
+				<script type="text/javascript">
+
+
+
+
+
+
+    $(document).ready(function(){
+		$('#offerContModal').find('.c-textfield, .c-textarea').css("margin-top", "10px");
+        $('#inputArgomento, #inputEmailContOffer, #inputTelefonoContOffer, #inputHourContOff, #inputMessaggioContOffer, #switcherContactOff' ).focusout(function(){
+            if($(this).val() || $(this).val().length != 0 ){
+                $(this).addClass("is-filled");
+            } else {
+                $(this).removeClass("is-filled");
+            }
+        }).focusout();
+		
+        $('#submitContactOff').prop('disabled', true);
+
+        $('#inputEmailContOffer').on('keyup', validateNextButton);
+        $('#inputTelefonoContOffer').on('keyup', validateNextButton);
+        $('#inputArgomento').on('change', validateNextButton);
+        $('#inputMessaggioContOffer').on('keyup', validateNextButton);
+        $('#changeSwitcherStatusId').on('click', validateNextButton);
+
+        ctrlModalerror();
+		$('#offerContModal form').on('submit', function(event) {
+			var isLocked = false;
+			if (isLocked) {
+				alert("Utente non autorizzato.");
+				return false;
+			}
+			$('#submitContactOff').prop('disabled', true);
+			var email = $('#inputEmailContOffer').val();
+			var tel = $('#inputTelefonoContOffer').val();
+
+			if (!checkForm(email, tel)) {
+				event.preventDefault();
+			} else if(checkAllegati() == false) {
+				event.preventDefault();
+			} else {
+				$('#inputArgomento').prop('disabled', false);
+			}
+		});
+    });
+
+    function clearInputValue() {
+        let ids = ['#inputArgomento', '#inputEmailContOffer', '#inputTelefonoContOffer', '#inputHourContOff', '#inputMessaggioContOffer'];
+        $.each(ids, function(index, value) {
+            $(value).val('');
+            $(value).removeClass("is-filled");
+        });
+		$('#switcherContactOff').removeAttr('checked');
+		$("#errorsOCM").hide();
+		$('#submitContactOff').prop('disabled', true);
+		$('#inputArgomento').prop('disabled', false);
+    }
+
+    function ctrlModalerror() {
+        if($('#offerContModal').find('#error').length > 0) {
+            $("#offerContModal").removeClass("isClose");
+            $("#offerContModal").addClass("isOpen");
+
+        }
+    }
+	
+	function validateNextButton() {
+		var buttonDisabled = $('#inputArgomento').val().trim() === '' || $('#inputEmailContOffer').val().trim() === '' || $('#inputTelefonoContOffer').val().trim() === '' || $('#inputMessaggioContOffer').val().trim() === '' || !$('#switcherContactOff').prop('checked');
+		$('#submitContactOff').prop('disabled', buttonDisabled);
+	}
+
+	checkForm=function(email, tel) {
+		console.log(email + " " + tel);
+		// regular expression to match required email format
+		re_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;		
+		if(!email.match(re_email)) {
+			$("#errorsOCM").show();
+			$("#errorsOCM span").text("L'indirizzo email inserito non risulta essere valido.");
+			return false;
+		}
+		re_tel = /^[+]?\d+$/;
+		if(!tel.match(re_tel)) {
+			$("#errorsOCM").show();
+			$("#errorsOCM span").text("Il numero di telefono inserito non è valido, inserire solo numeri.");
+			return false;
+		}
+
+
+		$("#errorsOCM").hide();
+		return true;
+	};
+
+
+
+
+	
+    function openModalOff(origin, arg, numPol, codAge, agenziaDescr) {
+		setArgomento(origin, arg, agenziaDescr);
+		enableAllegati(origin,numPol);
+		$('#inputOrigin').val(origin);
+		$('#inputPolizzaContOffer').val(numPol);
+		$('#inputCodAge').val(codAge);
+		setIntestazione(agenziaDescr);
+		$('#inputEmailContOffer').val('');
+		$('#inputTelefonoContOffer').val('');
+		$("#inputNome, #inputCognome, #inputEmailContOffer, #inputTelefonoContOffer").addClass("is-filled");
+        document.getElementById('offerContModal').classList.remove('isClose');
+        document.getElementById('offerContModal').classList.add('isOpen');
+    }
+	
+	function setIntestazione(agenziaDescr) {
+		if (agenziaDescr.includes("Sparkasse") || agenziaDescr.includes("CiviBank")) {
+			$("#basic-popup-label span").text("a " + agenziaDescr);
+			$("#basic-popup-desc span").text("al tuo intermediario");
+		} else {//default
+			$("#basic-popup-label span").text("all'Agente");
+			$("#basic-popup-desc span").text("all’agenzia Allianz " + agenziaDescr);
+		}
+	}
+	
+	function setArgomento(origin, arg, agenziaDescr) {
+		if (origin === 'imieidati-contatti' || origin === 'pagamenti' || origin === 'sospensione' || origin.includes("offert")) {
+			$('#inputArgomento').prop('disabled', true);
+		}
+		if (agenziaDescr.includes("Sparkasse") || agenziaDescr.includes("CiviBank")) {
+			$('#inputArgomento').prop('disabled', true);
+			arg = 'Risparmio e Previdenza';
+		}
+		if (arg) {
+			$('#inputArgomento').val(arg);
+			$("#inputArgomento").addClass("is-filled");
+		}
+	}
+
+	// ALLEGATI
+
+	function enableAllegati(origin, numPol) {
+		if (origin.includes("offert") && numPol) {
+			$("#docAllegati").show();
+		}
+	}
+
+
+	function upFileWriteName(){
+		let fileInputO = document.getElementById("inputAllegati");
+		let limiteAllegatiO = 3;
+		let boxUpFileInput;
+		let boxUpFileName;
+		const name = 'name_file';
+		let press = 1;
+		for (let i = 0; i < fileInputO.files.length; i++) {
+			if(i < limiteAllegatiO) {
+				if (i >= 1) {
+					boxUpFileInput = $('<input id="inputAllegati' + i + '" name="allegati(' + i + ')" style="display: none;"> ');
+					boxUpFileInput.appendTo('#upFileAllegati');
+
+					$("#inputAllegati" + i).val(fileInputO.files[i]);
+
+					boxUpFileName = $('<div id="' + name + i + '" style="font-size: 16px;" </div> ');
+					boxUpFileName.appendTo('#upFileName');
+
+				}
+				let nFileMBO = 1024;
+				let frazMBO = 2;
+
+				let fileNameO = fileInputO.files[i].name;
+				let fileInputIndexO = fileInputO.files[i];
+				let fileSizeO = fileInputIndexO.size;
+				let sizeInMBO = (fileSizeO / (nFileMBO * nFileMBO)).toFixed(frazMBO);
+
+				$("#" + name + i).text(fileNameO + " " + "( " + sizeInMBO + " MB )");
+
+				fileNameO.split('.').pop().toLowerCase();
+
+				deleteAllegati(fileInputO.files.length, press);
+			}
+
+		}
+
+		press = press+1;
+	}
+
+
+
+	function deleteAllegati(fileInputFiles, press) {
+
+		let inputA1 = $("#inputAllegati1");
+		let inputA2 = $("#inputAllegati2");
+
+		if(press > 1 && fileInputFiles == 1){
+			if(inputA1 != null){
+				$(inputA1).remove();
+				$("#"+name+1).remove()
+			}
+			if(inputA2 != null){
+				$(inputA2).remove();
+				$("#"+name+1).remove()
+			}
+		}else if (press > 1 && fileInputFiles == 2){
+			if(inputA2 != null){
+				$(inputA2).remove();
+				$("#"+name+2).remove()
+			}
+		}
+
+	}
+
+	function checkAllegati(){
+		console.log("checkAllegati");
+		let tipoFileExtensionsO = ['jpg', 'pdf','png','jpeg'];
+		let nFileMBO = 1024;
+		let frazMBO = 2;
+		let limiteMBO = 5;
+		let alertOverO ='#alertFileOverO';
+		let alertExtensionO = '#alertFileExtensionO';
+		let fileInputO = document.getElementById("inputAllegati");
+		if(fileInputO != null){
+			for (let i = 0; i < fileInputO.files.length; i++) {
+
+				let fileNameO = fileInputO.files[i].name;
+				let fileInputIndexO = fileInputO.files[i];
+				let fileSizeO = fileInputIndexO.size;
+				let sizeInMBO = (fileSizeO / (nFileMBO*nFileMBO)).toFixed(frazMBO);
+				let fileExtensionO = fileNameO.split('.').pop().toLowerCase();
+				countFile += 1;
+
+
+				if (sizeInMBO > limiteMBO) {
+					$("#"+name+i).css("color", "Red");
+					$(alertOverO).css("display", "block");
+					$(alertExtensionO).css("display", "none");
+
+					return false;
+				} else if ((fileExtensionO !== "" && tipoFileExtensionsO.indexOf(fileExtensionO) <= -1) || fileSizeO <= 0) {
+					$(alertExtensionO).css("display", "block");
+					$(alertOverO).css("display", "none");
+
+					return false;;
+				} else {
+					$("#"+name+i).css("color", "#414141");
+					$(alertOverO).css("display", "none");
+					$(alertExtensionO).css("display", "none");
+
+					return true;
+				}
+			}
+			return true;
+		}
+		return true;
+	};
+
+
+
+
+</script>
+
+<div id="offerContModal" class="c-popup js-popup isClose" tabindex="-1" >
+	<div class="c-popup__dialog" aria-hidden="true" tabindex="0">
+		<form name="RicontattiForm" method="post" action="/digitalme/private/invioMailRicontatto.do" enctype="multipart/form-data"><div class="c-popup__header">
+				<span class="c-popup__close c-icon c-icon--close" onclick="closeModal('offerContModal');clearInputValue();" data-dismiss="modal" aria-label="Close" tabindex="0"></span>
+			</div>
+			<div class="c-popup__body" >
+				<div class="l-grid__column-12" style="text-align: center;">
+					<div class="u-padding-bottom-10" id="basic-popup-label" style="font-size: 30px;">Chiedi <span></span></div>
+					<p class="c-copy u-text-center" id="basic-popup-desc" style="padding-bottom: 10px;">
+						Compila il form per inviare la tua richiesta <span></span>
+					</p>
+				</div>
+				<div id="errorsOCM" class="error" style="padding-left: 60px; display: none;">
+					<span></span>
+				</div>
+				<div class="l-grid__column-12">
+					<fieldset class="l-grid__column-12">
+						<legend style="display:none;"></legend>
+						<div class="c-form">
+						<div class="c-form__group l-grid__row">
+								<div class="l-grid__column-medium-6">
+									<div class="c-textfield js-floating ">
+										<input type="text" name="nome" size="40" value="CLAUDIO" id="inputNome" class="c-textinput__field c-textinput__field--floating js-floating__input capitalize" readonly>
+										<label for="inputNome" class="c-textinput__label c-textinput__label--floating c-textinput__label--animating">
+											Nome
+										</label>
+									</div>
+								</div>
+								<div class="l-grid__column-medium-6">
+									<div class="c-textfield js-floating ">
+										<input type="text" name="cognome" size="40" value="GRATTON" id="inputCognome" class="c-textinput__field c-textinput__field--floating js-floating__input capitalize" readonly>
+										<label for="inputCognome" class="c-textinput__label c-textinput__label--floating c-textinput__label--animating">
+											Cognome
+										</label>
+									</div>
+								</div>
+							</div>
+						<div class="c-form__group l-grid__row">
+								<div class="l-grid__column-medium-12">
+									<div class="c-textfield js-floating ">
+										<input type="text" name="email" size="40" value="" id="inputEmailContOffer" class="c-textinput__field c-textinput__field--floating js-floating__input is-filled">
+										<label for="inputEmailContOffer" class="c-textinput__label c-textinput__label--floating c-textinput__label--animating">
+											E-mail
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="c-form__group l-grid__row">
+								<div class="l-grid__column-medium-6">
+									<div class="c-textfield js-floating ">
+										<input type="text" name="telefono" size="40" value="" id="inputTelefonoContOffer" class="c-textinput__field c-textinput__field--floating js-floating__input">
+										<label for="inputTelefonoContOffer" class="c-textinput__label c-textinput__label--floating c-textinput__label--animating">
+											Telefono
+										</label>
+									</div>
+								</div>
+								<div class="l-grid__column-medium-6">
+									<div class="c-textfield js-floating ">
+										<select id="inputHourContOff" name="orarioRicontatto" class="c-select__selection c-textinput__field--floating js-floating__input"  style="font-size: 20px;">
+											<option class="c-select-results__option" value=""> </option>
+											<option class="c-select-results__option">Mattina</option>
+											<option class="c-select-results__option">Pomeriggio</option>
+										</select>
+										<label  for="inputHourContOff" class="c-textinput__label c-textinput__label--floating">
+											Orario di ricontatto
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="c-form__group l-grid__row">
+								<div class="l-grid__column-medium-12">
+									<div class="c-textfield js-floating ">
+										<select id="inputArgomento" name="argomento" class="c-select__selection c-textinput__field--floating js-floating__input" style="font-size: 20px;" required>
+											<option class="c-select-results__option" value=""> </option>
+											<option class="c-select-results__option">Allianz Lithium</option>
+											<option class="c-select-results__option">Pagamenti</option>
+											<option class="c-select-results__option">Sospensione RC Auto</option>
+											<option class="c-select-results__option">Mobilità</option>
+											<option class="c-select-results__option">Casa e Patrimonio</option>
+											<option class="c-select-results__option">Salute</option>
+											<option class="c-select-results__option">Risparmio e Previdenza</option>
+											<option class="c-select-results__option">Impresa</option>
+											<option class="c-select-results__option">Offerte</option>
+											<option class="c-select-results__option">Contatti</option>
+											<option class="c-select-results__option">Altro</option>
+										</select>
+										<label  for="inputArgomento" class="c-textinput__label c-textinput__label--floating">
+											Argomento
+										</label>
+									</div>
+								</div>
+							</div>		
+							<div class="c-form__group l-grid__row">
+								<div class="l-grid__column-medium-12">
+									<div class="c-textarea js-floating ">
+										<textarea name="note" rows="5" id="inputMessaggioContOffer" style="height: 35px;" class="c-textarea__input c-textinput__field c-textinput__field--floating js-floating__input js-textarea"></textarea>
+										<label class="c-textinput__label c-textinput__label--floating c-textinput__label--animating" for="inputMessaggioContOffer">
+											<span class="c-textinput__label--optional"></span>
+											Dettaglio della richiesta
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="docAllegati" class="c-form__group l-grid__row" style="margin-top: 30px; display: none;">
+							<fieldset class="l-grid__column-11 u-padding-bottom-20" >
+								<legend style="font-size: 20px; margin-bottom: 20px;">  Aggiungi documento</legend>
+								<div>
+									<div id="alertFileOverO"
+										 class="c-message c-message--warning c-message--no-shadow c-message--max-width js-close"
+										 style="background: #fdf8e9; display: none;">
+										<div class="c-message__content">
+											<em aria-hidden="true" class="c-message__item-icon c-icon c-icon--info-circle"></em>
+											<p class="c-copy ">
+												La dimensione dell&#8216; allegato non pu&#242; superare il limite massimo di 5 megabyte
+											</p>
+										</div>
+									</div>
+									<div id="alertFileExtensionO"
+										 class="c-message c-message--warning c-message--no-shadow c-message--max-width js-close"
+										 style="background: #fdf8e9; display: none;">
+										<div class="c-message__content">
+											<em aria-hidden="true" class="c-message__item-icon c-icon c-icon--info-circle"></em>
+											<p class="c-copy "> Il tipo del file caricato non &#232; valido o non &#232; riconosciuto</p>
+										</div>
+									</div>
+								</div>
+								<div>
+									<p class="inner-font-bold-modal" style="font-size: 14px;">Carica documento (allegato jpg, png o pdf max. 5 MB)</p>
+								</div>
+								<div id="upFileAllegati" style="margin-top: -20px; display: flex;">
+									<label for="inputAllegati" type="button" class="c-button c-button--small c-button__add-file u-padding-left-30 u-padding-right-30" style="margin: 25px 6px 25px;!important;" onchange="upFileWriteName();">
+										<input id="inputAllegati" type="file" name="allegati(0)" value="" class="allegato-sinistri" style="display: none" multiple> Scegli file...
+									</label>
+									<div id="upFileName" style="position: absolute; top: 40px; left: 177px;">
+										<div id="name_file0" style="font-size: 16px;"></div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+						<div class="c-form__group l-grid__row">
+							<div class="l-grid__column-medium-12">
+								<div id="changeSwitcherStatusId" class="c-switcher c-switcher--big u-padding-top-30">
+									<input type="checkbox" name="acconsento" id="switcherContactOff" class="c-switcher__input is-filled" >
+									<label for="switcherContactOff" class="c-switcher__label">
+										<span class="c-switcher__icon c-switcher__icon--active c-icon c-icon--check" aria-hidden="true">
+										</span>
+										<a href="https://www.allianz.it/content/dam/onemarketing/azit/allianz-it/area-personale/doc/PrivacyIndustrialeAgenzia.pdf" target="_blank" rel="noopener">Dichiaro di aver letto la normativa sulla privacy</a>
+									</label>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<div class="c-popup__footer" style="padding-top: 11px;">
+					<button id="submitContactOff" class="c-button c-button--small" style="width: 142px;float: right;margin-top: 10px;" >Invia</button>
+					<button type="button" class="c-button c-button--secondary c-button--small" onclick="closeModal('offerContModal');clearInputValue();" style="width: 142px;float: right;margin-right: 10px;margin-top: 10px;">Annulla</button>
+				</div>
+				<input type="hidden" name="origin" id="inputOrigin" value="">
+				<input type="hidden" name="numeroPolizza" id="inputPolizzaContOffer" value="">
+				<input type="hidden" name="codAgenzia" id="inputCodAge" value="">
+			</div>
+		</form></div>
+</div>
+
+
+
+<script>
+
+
+
+
+
+</script><script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        $('[id^="menu_topbar|"]').click(function(){
+			try {
+				var id = $(this).attr("id");
+				var array = id.split("|");
+				var componente = array[0].toLowerCase();
+				var cta = array[1].toLowerCase();
+				_satellite.track('areapersonale', {
+					'componente':componente,
+					'cta':cta
+				});
+			} catch(e) {
+			    console.log('' +e);
+			} finally{
+				if($(this).attr("href") !== undefined){
+                	location.href=$(this).attr("href");
+				}else{
+					let link = $(this).attr("data-link");
+					console.log(link);
+					window.open(link);
+				}
+            }
+        });
+    });
+
+</script>
+
+<div class="custom-container">
+	<div class="row header">
+		<div class="col-md-12">
+		    <div class="logo-hedear" id="buttonDashboard" onClick="location.href='/digitalme/private/dashboard.do'" >
+                <img src="/digitalme/assets/img/logo.png"/>
+            </div>
+			<div class="c-icon c-icon--xs c-icon--bars c-icon-colorbars float-right burger-mn" data-toggle="dropdown" aria-haspopup="true"aria-expanded="false" aria-expanded="false"></div>
+		<!--  <div class="c-icon c-icon--xs c-icon--bell c-icon-colorbell float-right"></div>  -->
+			<div class="dropdown-menu dropdown-menu-right">
+				<div class="row">
+					<a class="dropdown">
+						<div class="row drop1">
+						    <div id="menu_topbar|Home" class="col-xs-4 polizze" href="/digitalme/private/dashboard.do" >
+                                <div class="c-icon c-icon--s c-icon--product-house c-icon-po c-link-pointer"></div>
+                                <p class="text-drop c-link-pointer">Home</p>
+                            </div>
+							<div id="menu_topbar|Polizze" class="col-xs-4 sinistri" href="/digitalme/private/polizzeDashboard.do" >
+                                <div class="c-icon c-icon--s c-icon--product-check-paper c-icon-po c-link-pointer"></div>
+                                <p class="text-drop c-link-pointer">Polizze</p>
+							</div>
+							<div id="menu_topbar|Sinistri" class="col-xs-4 dati" href="/digitalme/private/snodoSinistri.do" >
+										<div class="c-icon c-icon--s c-icon--product-danger c-icon-or c-link-pointer"></div>
+										<p class="text-drop c-link-pointer">Sinistri</p>
+									</div>
+							<!--
+							<div id="menu_topbar|Pagamenti" class="col-xs-4 pagamenti" href="/digitalme/private/">
+								<div class="c-icon c-icon--s c-icon--product-credit-card c-icon-p c-link-pointer"></div>
+								<p class="text-drop c-link-pointer">Pagamenti</p>
+							</div>
+							-->
+						</div>
+			
+						<div class="row drop2 ">
+							<div id="menu_topbar|I_tuoi_dati" class="col-xs-4 polizze" href="/digitalme/private/leggiDatiPersonali.do" style="padding-left: 21px;">
+								<div class="c-icon c-icon--s c-icon--product-person c-icon-d c-link-pointer"></div>
+								<p class="text-drop c-link-pointer">I tuoi dati</p>
+							</div>
+			<div id="menu_topbar|Agenzia" class="col-xs-4 polizze" href="/digitalme/private/schedaAgenzia.do?codAgenzia=10754" style="padding-left: 47px;">
+								<div class="c-icon c-icon--s c-icon--product-people-connect  c-icon-ag c-link-pointer"></div>
+								<p class="text-drop c-link-pointer">Agenzia</p>
+							</div>
+						</div>
+					<div class="row drop3">
+                          <div id="menu_topbar|Convenzioni" class="col-xs-4 convenzioni" href="/digitalme/private/listaConvenzioni.do" >
+                                <div class="c-icon c-icon--s c-icon--product-star-event c-icon-ev c-link-pointer"></div>
+                                <p class="text-drop c-link-pointer">Convenzioni</p>
+                            </div>
+						  <div id="menu_topbar|Cai" class="col-xs-4 caidigitale" data-link="https://areapersonale.allianz.it/validatorEngine/digital-cai/home" style="">
+								<div class="c-icon c-icon--s c-icon--product-car-mobility c-icon-menu_cai c-link-pointer"></div>
+								<p class="text-drop c-link-pointer">Cai digitale</p>
+							</div>
+						</div>
+					</a>
+					<div class="dropdown-divider "></div>
+					<a class="dropfooter" href="/digitalme/private/logout.do" style="text-decoration: none;" >
+                        <span class="text-area">Esci dall'area personale</span>
+                    </a>
+                    <a class="iconright c-text-decor-none" href="/digitalme/private/logout.do">
+                        <span class="c-icon c-icon--xs c-icon--arrow-right c-icon-color-right" ></span>
+                    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><link rel="stylesheet" href="/digitalme/assets/style/custom_polizze.css" >
+
+<script language="JavaScript" type="text/javascript">
+	function goBack() {
+        window.history.back();
+    }
+</script>
+
+<div class="custom-container">
+    <div class="breadcrumb">
+        <a href="/digitalme/private/dashboard.do" class="c-text-decor-none" ><em class="c-icon c-icon--chevron-left" style="font-size: 22px;"></em><span> Torna indietro</span></a>
+    </div>
+
+    <div class="custom-detail u-padding-bottom-75" style="float: left;padding-top: 40px;">
+        <div class="col-md-12 detail-cont" >
+            <div class="col-lg-4 side-bar">
+                <div id="box-sinistro" class="row side-box" style="border-top: 5px solid #70CAF3;">
+                    <div class="side-title text-uppercase">
+                        <span style="color: #70CAF3;">
+                            Insieme</span>
+                        <div class="side-subtitle obfuscate-cvp">n.
+							6609273</div>
+                    </div>
+                        <div class="side-stato" >
+                            <div style="background-color: #DFEEDE;">
+                                              <span style="color: #1C8A20;">
+                                                  <span style="font-family: 'Allianz Neo'; font-weight: 600;">Attiva</span>
+                                                  <br/>Fino al raggiungimento dei requisiti previdenziali</span>
+                                          </div>
+                                     </div>
+                        <div class="col-md-12">
+                            <div class="row side-box-mb" style="padding-top: 25px;">
+                                <div class="col-md-12" style="margin-bottom: 20px;padding-left: 0px;">
+                                            <div class="col-sx-2 agenzia-icon c-icon c-icon--xs c-icon--duplicate">
+                                            </div>
+                                            <div class="col-sx-8 side-beni">
+                                                <span class="prod-label">Bene Assicurato</span>
+                                                <br>
+                                                <span class="prod-name obfuscate-cvp">-</span>
+                                                <div class="side-beni-titles"></div>
+                                                        </div>
+                                        </div>
+                                    </div>
+                        </div>
+                </div>
+
+                    <div class="row side-group-element-dettaglio" style="margin-bottom: 15px;">
+                            <div class="col-md-12 box-dettaglio-bar" style="margin-top: 13px;">
+                                <div class="col-sx-2 side-bar-icon-left" style="padding-top: 8px;">
+                                    <em class="c-icon c-icon--xs c-icon--filter" style="display: block"></em>
+                                </div>
+                                <div class="col-sx-8 side-beni-wifi" style="padding-top: 12px;">
+                                    Simulazione<br>
+                                </div>
+                                <div class="col-sx-2 arrow-dettaglio">
+                                    <a id="idSimulazione" href="/digitalme/private/simulazione.do?polizza=6609273 ">
+                                        <em class="c-icon c-icon--xs c-icon--chevron-right" style="float: right;font-size: 15px;font-weight: 600;"></em>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <!--fine-->
+
+            <div id="contentDsktp" class="col-lg-8 doby-content" style="display: initial;">
+                <script>
+            var listTab = 1;
+            var singleTabWidth;
+            if(listTab <= 5) {
+                singleTabWidth = 100/listTab;
+                $("#drop-tab").css("display","none");
+            } else {
+                singleTabWidth = 'Infinity'; //MS20220316: trucchetto per ottenere comunque l'ampiezza corretta dei tab
+            }
+            var tabWidth = singleTabWidth + '%';
+
+
+        </script>
+
+        <nav class=" col-md-12 content-tabs">
+            <div class="tabs-head nav" id="nav-tab" role="tablist">
+                <a class="tab-width tablink nav-item tab-index-0 active"
+                               id="section0"
+                               data-target="#nav-tab0"
+                               data-toggle="tabajax" href="polizzaVitaDettaglio.do?szPolizza=6609273&amp;szComp=1&amp;szProto=&amp;szAgen=0&amp;szTipoPolizza=UL&amp;szRamo=0&amp;szCodArcProv=0&amp;flagVitaLloyd=false&amp;flagDanniAutoLloyd=false&amp;tabSelezionato=InfoPrevUnifondi&amp;unifondi=true&amp;flagPrev=true" role="tabpanel"
+                               aria-controls="nav-tab0"
+                               aria-selected="true"
+                               onclick="deleteActiveFromClass(0)">
+                                <input id="Input0" tabindex="-1"
+                                       class="c-tabs__input" aria-controls="Content0"
+                                       name="tabs-1" type="radio" checked="" aria-selected="true">
+                                <label id="Tab-0" tabindex="-1" for="Input0" >
+                                    <div class="tablink-div">
+                                        <span>Prestazioni</span>
+                                    </div>
+                                    <span aria-hidden="true" class="c-tabs__icon c-icon c-icon--chevron-down"></span>
+                                    <span aria-hidden="true" class="c-tabs__icon c-icon c-icon--chevron-up"></span>
+                                </label>
+                            </a>
+                            <script>
+                                $("#section0").css('width', tabWidth);
+                            </script>
+                        <script>
+                            var tabNum = 0;
+                        </script>
+
+                    <div id="drop-tab" class="dropdown" style="display: none;">
+                        <a href="javascript:void(0)" class="tablink dropbtn">
+                            <span id="altro">Altro</span>
+                            <span class="c-icon c-icon--s c-icon--chevron-down nav-altro-tb"
+                                  style="font-size: 16px;float: right;font-weight: 600;margin-top: 2px;"></span>
+                        </a>
+                        <div class="dropdown-content"></div>
+                    </div>
+
+                </div>
+        </nav>
+
+
+
+
+
+        <!-- Menu a tendina -->
+        <script>
+
+            $(document).ready(function(){
+                $(".dropdown").hover(function(){
+                    $(".nav-altro-tb").css("transform", "rotate(180deg");
+                    $("#altro").css("color", "#006192");
+                },function(){
+                    $(".nav-altro-tb").css("transform", "rotate(0deg");
+                });
+
+                if(tabNum > 4 ) {
+                    $(".dropdown").css("display","block");
+                    
+                }
+
+            });
+
+
+            function deleteActiveFromClass(idClass){
+
+                let classLenght = $(".tab-width").length;
+
+                for (let i=0; i < classLenght; i++) {
+                    if(i != idClass) {
+                        $('.tab-index-' + i).removeClass("active");
+                    }
+                }
+            }
+
+        </script>
+
+
+
+
+        <div class="col-md-12 tab-content" id="nav-tabContent">
+            <div class="tab-pane p-4 fade show active" id="nav-tab0"
+                             role="tabpanel" aria-labelledby="nav-tab0" ></div>
+                    </div></div>
+
+            <div id="contentMbl" role="tablist" class="c-accordion js-accordion" style="display: none;">
+                <div id="heading1" class="c-accordion__item-wrapper">
+            <a class="js-accordion__trigger c-accordion__trigger safari_only c-text-decor-none"
+                           data-toggle="tabajax"
+                           data-target="#collapseM0"
+                           aria-expanded="false"
+                           aria-controls="collapseM0"
+                           id="AccordionM0"
+                           href="polizzaVitaDettaglio.do?szPolizza=6609273&amp;szComp=1&amp;szProto=&amp;szAgen=0&amp;szTipoPolizza=UL&amp;szRamo=0&amp;szCodArcProv=0&amp;flagVitaLloyd=false&amp;flagDanniAutoLloyd=false&amp;tabSelezionato=InfoPrevUnifondi&amp;unifondi=true&amp;flagPrev=true&mobile=M"
+                           role="tabpanel0"
+                           onclick="accordionCtrl(this.id)"
+                        >
+                            <span class="c-accordion__item-title"> Prestazioni</span>
+                            <i id="chevron" aria-hidden="true"
+                               class="c-accordion__chevron c-icon c-icon--chevron-down chevron c-icon-down">
+                            </i>
+                        </a>
+
+                        <div id="collapseM0" class="collapse active"
+                             role="tabpanel0" aria-labelledby="heading1" >
+                            <div class="collapse" id="collapseM0" role="tabpanel0"
+                                 aria-labelledby="collapseM0" ></div>
+                        </div>
+                    </div>
+</div>
+        </div>
+
+
+        <script>
+           var count = 0;
+           var countM = 0;
+          $(document).ready(function(){
+              var tabToOpen = '';
+              var nav = 'D';
+              if(nav=='M'){
+                  var loadurl = $('#AccordionM'+tabToOpen).attr('href');
+                  var msg='';
+                  var attach='';
+                  if(msg != '' && countM === 0){
+                    loadurl = loadurl + '&msg=' + msg + attach;
+                    countM++;
+                  }
+                  $('#AccordionM'+tabToOpen).attr("href", loadurl);
+                  $('#AccordionM'+tabToOpen).click()
+              }
+              if(tabToOpen!=''){
+                    $('#section'+tabToOpen).click();
+              }else{
+                   $('[data-toggle="tabajax"]:first').click();
+              }
+
+              function checkWidth() {
+                  var windowWidth = $(window).width();
+                  if (windowWidth <= 500) {
+                      $("#down-arrow a").hide();
+                  } else {
+                      $("#down-arrow a").show();
+                  }
+              }
+              checkWidth();
+
+              $(window).resize(checkWidth);
+          });
+
+          $('[data-toggle="tabajax"]').click(function(e) {
+               var $this = $(this),
+                   loadurl = $this.attr('href'),
+                   targ = $this.attr('data-target'),
+                   msg='',
+                   attach='';
+                   if(msg != '' && count === 0){
+                      loadurl = loadurl + '&msg=' + msg + attach;
+                      count++;
+                   }
+               $.get(loadurl, function(data) {
+                   $(targ).html(data);
+					if (false) {
+						$(targ).find(".obfuscate-cvp").addClass("obfuscate");
+					}
+               });
+
+
+               $this.tab('show');
+               return false;
+          });
+		  
+
+           function accordionCtrl(accID) {
+               var acc = document.getElementById(accID).getAttribute("aria-expanded");
+               var collapseID = "collapseM" + accID.slice(10);
+               if (acc == "true")
+               {
+                   acc = "false";
+                   document.getElementById(accID).setAttribute("aria-expanded", acc);
+                   document.getElementById(accID).classList.remove("open");
+                   document.getElementById(collapseID).classList.remove("show");
+
+               } else {
+                   acc = "true";
+                   document.getElementById(accID).setAttribute("aria-expanded", acc);
+                   document.getElementById(accID).classList.add("open");
+                   document.getElementById(collapseID).classList.add("show");
+               }
+           }
+        </script>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.tablink').click(function(){
+		    try{
+                var id_tab = $(this).attr('id');
+                var link = $(this).attr('href').toLowerCase();
+                var tab = document.getElementById(id_tab);
+                var nome = tab.innerText.toLowerCase();
+                _satellite.track('areapersonale', {
+                    'componente':'cambiotab',
+                    'tab':nome,
+                    'pagename':nome,
+                    'url':link
+                });
+            } catch(e) {
+              console.log('' +e);
+            }
+		});
+
+		$('#richiediSupporto').click(function(){
+
+            try{
+                var switchN = '2';
+                var nome='';
+                if(switchN=='2'){
+                     nome = 'Insieme';
+                }
+                if(switchN=='3'){
+                     nome = 'Insieme'+'('+''+')';
+                }
+                var area = 'previdenza';
+                nome = nome.replaceAll(" ", "_").toLowerCase();
+                var idPolizza ='AICX001';
+                _satellite.track('areapersonale', {
+                    'componente':'colonna_polizza',
+                    'cta':'richiedi_supporto_all_agenzia_allianz',
+                    'nome_polizza_offerta':nome,
+                    'id_polizza':idPolizza,
+                    'categoria':area
+
+                });
+            } catch(e) {
+              console.log('' +e);
+            }finally{
+               location.href=$(this).attr("href");
+            }
+        });
+	})
+</script><script language="JavaScript" type="text/javascript">
+       function closeCentralModal(){
+           $('#modalBodyId p').empty();
+           $('#modalFooterId div').empty();
+		$("#centralModalId").removeClass("isOpen");
+		$("#centralModalId").addClass("isClose");
+	};
+
+	function openCentralModal(title, message, buttons){
+
+		$(".modal .modal-title").html(title);
+
+		var body = $('<p style="text-align: center; font-size: 15px; line-height: 36px;letter-spacing: .3px;">'
+                            + message +
+                    '</p>');
+		body.appendTo('#modalBodyId');
+
+		if (!buttons) {
+			buttons = $('<div><button class="c-button u-padding-left-35 u-padding-right-35" onclick="closeCentralModal()">CHIUDI</button></div>');
+		}
+		buttons.appendTo('#modalFooterId');
+
+		$("#centralModalId").removeClass("isClose");
+		$("#centralModalId").addClass("isOpen");
+	}
+</script>
+
+<div class="js-popup c-popup modal isClose" aria-modal="true" role="dialog" tabindex="-1" id="centralModalId">
+    <div id="modalOver" class="c-popup__dialog" aria-hidden="true" tabindex="0" >
+        <div class="c-popup__header">
+            <span class="c-popup__close c-icon c-icon--close" data-dismiss="modal" onclick="closeCentralModal()" aria-label="Close" tabindex="0"></span>
+        </div>
+        <div class="c-popup__body" style="text-align: center;">
+            <h4 class="c-heading modal-title">
+                <!-- Titolo modale -->
+            </h4>
+        </div>
+        <div class="modal-body" id="modalBodyId" style="margin-bottom: 30px;">
+            <!-- Spazio per testo -->
+        </div>
+        <div class="" id="modalFooterId" style=" text-align: center;">
+            <!-- Spazio per pulsanti confermativi -->
+            <div class="l-grid__column-12">
+                <div class="c-form__group l-grid__row">
+                    <div class="l-grid__column-11" style="margin-top: 5px; margin-bottom:5px; margin-left: 26px;">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fine wrapper -->
+	<!-- footer start  -->
+<div class="custom-container">
+    <div class="section-footer  col-lg-12" style="float:left; background-color: #fff; border-top: solid 1px #ddd; border-top: solid 1px #D9D9D9;">
+        <div class="row">
+            <div class="col-md-12  ">
+                <div class="footer-service">
+                    <div class="c-footer__service c-footer__service-footer">
+
+                        <div class="c-footer__copyright-diritti">
+                            <small class="c-copyright">
+                                &copy; Allianz 2026 - Rappresentante del Gruppo IVA Allianz con P. IVA n. 01333250320
+                                -
+                                Tutti i diritti riservati
+                            </small>
+                        </div>
+                        <div class="footer-divider footer" ></div>
+
+                        <nav class="c-footer__legal-note" role="navigation" aria-label="Service Links" >
+                            <a class="c-footer__legal-link-note-text"  href="https://www.allianz.it/note-legali-privacy.html" target="_blank" style="text-decoration: none;">
+                                Note legali e privacy
+                            </a>
+                            <a class="c-footer__legal-link-text" href="https://www.allianz.it/utilizzo-dei-cookie.html" target="_blank" style="text-decoration: none;">
+                                Utilizzo cookie
+                            </a>
+                            <a class="c-footer__legal-link-text" href="https://www.allianz.it/contattaci/contatti-e-assistenza/reclami.html" target="blank"style="text-decoration: none;">
+                                Reclami
+                            </a>
+                            <a class="c-footer__legal-link-text" href="https://www.allianz.it/accessibilita-areapersonale.html" target="_blank" style="text-decoration: none;">
+                                Accessibilità
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

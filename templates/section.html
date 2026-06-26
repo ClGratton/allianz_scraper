@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allianz - {{ section_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="https://areapersonale.allianz.it/digitalme/assets/img/favicon.ico">
+</head>
+<body>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        })();
+    </script>
+    <div class="floating-controls">
+        <a href="{{ url_for('logout') }}" class="floating-btn logout-btn" aria-label="Esci" title="Esci">
+            <span class="floating-btn-icon">❌</span>
+            <span class="floating-btn-text">Esci</span>
+        </a>
+        <button id="theme-toggle" class="floating-btn theme-toggle-btn" aria-label="Toggle theme" title="Cambia tema">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div class="header-logo-area">
+                <img src="https://www.allianz.it/content/dam/onemarketing/system/allianz-logo.svg" alt="Allianz Logo">
+                <div class="user-info">
+                    <h2>{{ section_title }}</h2>
+                    <p>Polizza {{ policy.policy_name }} n. {{ policy.policy_number }}</p>
+                </div>
+            </div>
+            <a href="{{ url_for('dashboard') }}" class="btn-back">Indietro</a>
+        </header>
+
+        <!-- Interactive items list section -->
+        <section class="operations-section">
+            <div class="operations-grid">
+                {% for op in items %}
+                    <div class="op-card" onclick="location.href='/operation/{{ op.action_id }}'">
+                        <div class="op-icon">{{ op.icon }}</div>
+                        <div class="op-details">
+                            <h3>{{ op.title }}</h3>
+                            <p>{{ op.description }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="detail-card" style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">
+                        Nessuna voce disponibile.
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

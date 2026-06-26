@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allianz - {{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="https://areapersonale.allianz.it/digitalme/assets/img/favicon.ico">
+</head>
+<body class="operation-page">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        })();
+    </script>
+    <div class="floating-controls">
+        <a href="{{ url_for('logout') }}" class="floating-btn logout-btn" aria-label="Esci" title="Esci">
+            <span class="floating-btn-icon">❌</span>
+            <span class="floating-btn-text">Esci</span>
+        </a>
+        <button id="theme-toggle" class="floating-btn theme-toggle-btn" aria-label="Toggle theme" title="Cambia tema">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="dashboard-wrapper operation-wrapper">
+        <header class="dashboard-header">
+            <div class="header-logo-area">
+                <img src="https://www.allianz.it/content/dam/onemarketing/system/allianz-logo.svg" alt="Allianz Logo">
+                <div class="user-info">
+                    <h2>{{ title }}</h2>
+                    <p>Polizza {{ session['user_data']['policy']['policy_name'] }} n. {{ session['user_data']['policy']['policy_number'] }}</p>
+                </div>
+            </div>
+            <a href="{{ back_url }}" class="btn-back">Indietro</a>
+        </header>
+
+        {% if is_landing_page %}
+            {% if parent_description %}
+            <details class="op-description-details">
+                <summary class="op-description-summary">
+                    <span>Informazioni e Descrizione Servizio</span>
+                    <span class="summary-toggle-icon">▼</span>
+                </summary>
+                <div class="op-parent-description op-description-content">
+                    {{ parent_description | safe }}
+                </div>
+            </details>
+            {% endif %}
+            
+            <div class="category-grid">
+                {% for item in submenu_items %}
+                    <div class="category-card {{ item.card_type }}" onclick="location.href='{{ item.url }}'">
+                        <div class="category-icon-wrapper">{{ item.icon }}</div>
+                        <div class="category-details">
+                            <h3>{{ item.text }}</h3>
+                            <p>Accedi alla funzionalità di {{ item.text | lower }} della tua polizza previdenziale.</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {% if submenu_items %}
+            <div class="submenu-bar">
+                {% for item in submenu_items %}
+                    <a href="{{ item.url }}" class="submenu-btn {% if item.active %}active{% endif %}">
+                        {{ item.text }}
+                    </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if show_content_card is not defined %}
+                {% set show_content_card = true %}
+            {% endif %}
+            {% if parent_description_open is not defined %}
+                {% set parent_description_open = false %}
+            {% endif %}
+
+            {% if parent_description %}
+            <details class="op-description-details" {% if parent_description_open %}open{% endif %}>
+                <summary class="op-description-summary">
+                    <span>Informazioni e Descrizione Servizio</span>
+                    <span class="summary-toggle-icon">▼</span>
+                </summary>
+                <div class="op-parent-description op-description-content">
+                    {{ parent_description | safe }}
+                </div>
+            </details>
+            {% endif %}
+
+            {% if show_content_card %}
+            <div class="detail-card op-content-container">
+                {{ content | safe }}
+            </div>
+            {% else %}
+                {{ content | safe }}
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

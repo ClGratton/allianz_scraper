@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allianz - Dashboard Clienti</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="https://areapersonale.allianz.it/digitalme/assets/img/favicon.ico">
+</head>
+<body>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+        })();
+    </script>
+    <div class="floating-controls">
+        <a href="{{ url_for('logout') }}" class="floating-btn logout-btn" aria-label="Esci" title="Esci">
+            <span class="floating-btn-icon">❌</span>
+            <span class="floating-btn-text">Esci</span>
+        </a>
+        <button id="theme-toggle" class="floating-btn theme-toggle-btn" aria-label="Toggle theme" title="Cambia tema">
+            <span class="theme-toggle-icon">🌙</span>
+        </button>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <header class="dashboard-header">
+            <div class="header-logo-area">
+                <img src="https://www.allianz.it/content/dam/onemarketing/system/allianz-logo.svg" alt="Allianz Logo">
+                <div class="user-info">
+                    <h2>Benvenuto, {{ data.policy.full_name }}</h2>
+                    <p>Area Riservata Allianz Previdenza</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Policy details summary grid -->
+        <section class="details-grid">
+            <div class="detail-card">
+                <span class="label">Prodotto</span>
+                <span class="val">{{ data.policy.policy_name }}</span>
+            </div>
+            <div class="detail-card">
+                <span class="label">Numero Polizza</span>
+                <span class="val">{{ data.policy.policy_number }}</span>
+            </div>
+            <div class="detail-card">
+                <span class="label">Stato Posizione</span>
+                <span class="val">
+                    <span class="status-badge">{{ data.policy.status }}</span>
+                </span>
+            </div>
+            <div class="detail-card">
+                <span class="label">Agenzia di Riferimento</span>
+                <span class="val">{{ data.policy.agency }}</span>
+            </div>
+        </section>
+
+        <!-- Interactive categories list section -->
+        <section class="category-section">
+            <h3>Seleziona Categoria</h3>
+            <div class="category-grid">
+                <div class="category-card consultazioni-card" onclick="location.href='/section/consultazioni'">
+                    <div class="category-icon-wrapper">🔍</div>
+                    <div class="category-details">
+                        <h4>Consultazioni</h4>
+                        <p>Visualizza la documentazione, l'estratto conto, i contributi versati e lo stato complessivo della tua posizione previdenziale.</p>
+                    </div>
+                </div>
+                <div class="category-card operazioni-card" onclick="location.href='/section/operazioni'">
+                    <div class="category-icon-wrapper">⚙️</div>
+                    <div class="category-details">
+                        <h4>Operazioni</h4>
+                        <p>Effettua modifiche e richiedi variazioni: cambio azienda, variazione SDD, riallocazione comparti (switch) o riscatto posizione.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
