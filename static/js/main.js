@@ -66,6 +66,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 opcontent.classList.add("detail" + dash + "card");
             }
         }
+
+        // Align radio buttons and checkboxes with adjacent text node
+        const alignInputs = () => {
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+                const parent = input.parentElement;
+                if (!parent) return;
+                const next = input.nextSibling;
+                if (next && next.nodeType === 3) {
+                    const text = next.textContent.trim();
+                    if (text) {
+                        const span = document.createElement("span");
+                        span.textContent = " " + text;
+                        span.style.verticalAlign = "middle";
+                        span.style.display = "inline-block";
+                        input.style.verticalAlign = "middle";
+                        input.style.margin = "0 0.4rem 0 0";
+                        input.style.display = "inline-block";
+                        parent.replaceChild(span, next);
+                    }
+                }
+            });
+        };
+        alignInputs();
+        
+        // Listen to DOM mutations for dynamic AJAX pages load
+        const observer = new MutationObserver(alignInputs);
+        observer.observe(document.body, { childList: true, subtree: true });
     })();
 
     const loginForm = document.getElementById("login-form");
