@@ -1,38 +1,88 @@
-# Scraper e Proxy Allianz
+# Allianz Web Scraper e Client Proxy
 
-Questo progetto realizza una interfaccia web moderna per consultare ed effettuare operazioni sulla propria posizione previdenziale Allianz. L'applicazione agisce come un client dinamico che interagisce con il portale Allianz in tempo reale.
+Questa applicazione fornisce una interfaccia web moderna, responsive e ad alte prestazioni per interagire con la propria posizione previdenziale Allianz. Agisce come un intermediario intelligente, effettuando lo scraping in tempo reale delle pagine J2EE protette del portale Allianz e ripresentando i dati all'utente in modo chiaro, pulito e integrato con il tema grafico preferito.
 
-## Come Funziona
+## Caratteristiche Principali
 
-L'applicazione si basa su una architettura composta da diversi moduli:
+* Login Rapido e Ottimizzato: Esegue una richiesta diretta POST per autenticare l'utente, riducendo i tempi di caricamento del cinquanta per cento.
+* Cache di Sessione: Memorizza in modo cifrato e sicuro la sessione sul disco locale per evitare la ripetizione dei passaggi di login.
+* Riconoscimento Timeout: Rileva automaticamente se la sessione sul portale Allianz è scaduta e reindirizza l'utente alla schermata di login.
+* Interfaccia Responsive: Riorganizza i dati legacy in griglie moderne, tabelle pulite e schede informative.
+* Tema Scuro: Supporto nativo per il cambio del tema visivo memorizzato localmente.
 
-1. Autenticazione: L'utente inserisce le proprie credenziali email, password e numero di polizza. L'applicazione esegue una chiamata POST direttamente verso il portale Allianz per ottenere i cookie di sessione.
-2. Salvataggio Sessione: Per velocizzare gli accessi successivi, i cookie e le informazioni di sessione attive vengono serializzati sul disco locale in un file di cache.
-3. Transizione del Dominio: Il portale Allianz utilizza dei ticket di sicurezza per autorizzare la navigazione sul portale interno della previdenza complementare. L'applicazione cattura ed elabora questi ticket in modo automatico.
-4. Proxying delle Operazioni: Ogni pagina interna viene scaricata, privata degli elementi non necessari o stilizzati in modo obsoleto, e renderizzata all'interno di una interfaccia web moderna e responsive.
+## Architettura e Flusso Dati
 
-## Requisiti
+L'applicazione si interpone tra il browser dell'utente e i server Allianz seguendo questo flusso:
+
+1. Autenticazione: L'utente invia le proprie credenziali tramite il form di login locale. L'applicazione invia una richiesta POST a Allianz.
+2. Acquisizione Ticket: L'applicazione riceve la risposta, estrae il ticket di sicurezza J2EE (SCA) e lo conserva per consumarlo alla prima richiesta operativa.
+3. Parsing e Cleaning: Quando l'utente richiede una risorsa, l'applicazione scarica la pagina originale, rimuove gli stili obsoleti, elimina gli spazi vuoti superflui e adatta il codice HTML.
+4. Proxying Dinamico: Tutti i link interni e i form vengono riscritti in modo da transitare attraverso il server proxy locale.
+
+## Requisiti di Sistema
 
 * Python versione 3.12 o superiore
-* Pip per la gestione delle librerie Python
+* Connessione internet attiva per comunicare con i server Allianz
 
-## Installazione
+Librerie Python richieste:
+* Flask (gestione del server web)
+* Requests (comunicazione HTTP)
+* BeautifulSoup4 (analisi e manipolazione dell'HTML)
 
-1. Installare le librerie necessarie:
+## Installazione e Avvio
+
+1. Installare i pacchetti Python necessari:
    pip install flask requests beautifulsoup4
 
-2. Avviare l'applicazione web:
+2. Avviare il server locale:
    python app.py
 
-3. Aprire il browser web e navigare alla pagina:
+3. Navigare all'indirizzo locale:
    http://127.0.0.1:5000
 
-## Rotte e API Principali
+## Riferimento API e Rotte
 
-* GET / : Schermata di login iniziale
-* POST /api/login : Riceve le credenziali ed effettua l'accesso sul portale Allianz
-* GET /dashboard : Mostra il riepilogo della polizza e le categorie di navigazione
-* GET /section/<section_id> : Mostra l'elenco delle operazioni o consultazioni disponibili
-* GET /operation/<action_id> : Carica la pagina specifica di una operazione o consultazione
-* GET/POST /proxy/<path:subpath> : Gestisce le chiamate e le sottomissioni dei form interni del portale Allianz
-* GET /logout : Cancella la sessione locale e disconnette l'utente
+### GET /
+Ritorna la pagina iniziale con il form di login.
+
+### POST /api/login
+Roteazione delle credenziali.
+* Payload Richiesta (JSON):
+  {
+    "username": "utente@email.com",
+    "password": "la_tua_password",
+    "policy_number": "12345678"
+  }
+* Risposta di Successo (JSON):
+  {
+    "success": true
+  }
+* Risposta di Errore (JSON):
+  {
+    "success": false,
+    "error": "Descrizione dell'errore"
+  }
+
+### GET /dashboard
+Carica la schermata principale dopo l'accesso. Mostra le informazioni generali della polizza.
+
+### GET /section/<section_id>
+Filtra e visualizza le voci disponibili.
+* Valori validi per section_id: "operazioni", "consultazioni".
+
+### GET /operation/<action_id>
+Carica una specifica operazione o consultazione (ad esempio "sdd"). Se l'operazione ha una descrizione e nessun form compilabile, mostra la descrizione aperta ed esclude la scheda di contenuto vuota.
+
+### GET o POST /proxy/<path:subpath>
+Rotte di proxying dinamico. Reindirizza le richieste interne verso i server Allianz conservando i cookie e lo stato della sessione.
+
+### GET /logout
+Termina la sessione corrente, rimuove il file di cache locale e reindirizza alla home.
+
+## Risoluzione dei Problemi
+
+### Sessione Scaduta
+Se la sessione Allianz scade per inattività, il server intercetta il messaggio di timeout del portale e reindirizza l'utente alla pagina di accesso in modo pulito.
+
+### Errore di Connessione
+Assicurarsi che la macchina locale sia connessa a internet e che i server Allianz siano raggiungibili.
