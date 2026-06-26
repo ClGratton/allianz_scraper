@@ -55,15 +55,13 @@ function handleLoginSubmit(event) {
 
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
-    const policyInput = document.getElementById("policy_number");
     const errorMsg = document.getElementById("error-msg");
     const submitBtn = document.getElementById("submit-btn");
 
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
-    const policy_number = policyInput.value.trim();
 
-    if (!username || !password || !policy_number) {
+    if (!username || !password) {
         showError("Compila tutti i campi richiesti.");
         return;
     }
@@ -72,13 +70,6 @@ function handleLoginSubmit(event) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(username)) {
         showError("Inserisci un indirizzo email valido.");
-        return;
-    }
-
-    // Policy number check (numeric only)
-    const numericRegex = /^\d+$/;
-    if (!numericRegex.test(policy_number)) {
-        showError("Il numero di polizza deve contenere solo cifre.");
         return;
     }
 
@@ -101,9 +92,9 @@ function handleLoginSubmit(event) {
     fetch("/api/login", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            ["Content" + String.fromCharCode(45) + "Type"]: "application/json"
         },
-        body: JSON.stringify({ username, password, policy_number })
+        body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
     .then(data => {

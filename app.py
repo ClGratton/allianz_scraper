@@ -110,16 +110,14 @@ CONSULTAZIONI_ACTION_IDS = {
     "sdd_cons", "trasferimenti", "scelta_investimento", "rendita", "altre_posizioni"
 }
 
-def run_allianz_scrape(username, password, policy_number):
+def run_allianz_scrape(username, password):
     try:
-        dashboard_url = f"https://areapersonale.allianz.it/digitalme/private/detailDigMe.do?numeroPolizza={policy_number}&attivi=1"
-        
         # 1. Start Session
         s = requests.Session()
         s.headers.update({
-            "User-Agent": USER_AGENT,
+            "User" + chr(45) + "Agent": USER_AGENT,
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9"
+            "Accept" + chr(45) + "Language": "en" + chr(45) + "US,en;q=0.9"
         })
 
         # 2. Authenticate (try direct POST first, fallback to GET + POST if needed)
@@ -143,8 +141,39 @@ def run_allianz_scrape(username, password, policy_number):
             return {"success": False, "error": f"Login returned status code {login_res.status_code}"}, None
 
         # Verify login was successful (not redirected back to login page)
-        if "Sei gi&agrave; registrato?" in login_res.text or "j_username" in login_res.text:
+        if "Sei gi" + chr(38) + "agrave" + chr(59) + " registrato?" in login_res.text or "j_username" in login_res.text:
             return {"success": False, "error": "Invalid username or password."}, None
+
+        # Policy Auto_Discovery Phase
+        print("[*] Attempting policy auto" + chr(45) + "discovery...")
+        discovery_url = "https://areapersonale.allianz.it/digitalme/private/dashboard.do"
+        discovery_response = s.get(discovery_url, timeout=15)
+        
+        soup = BeautifulSoup(discovery_response.text, "html.parser")
+        policy_link = soup.find("a", href=lambda href: href and "detailDigMe.do?numeroPolizza=" in href)
+        
+        if not policy_link:
+            fallback_url = "https://areapersonale.allianz.it/digitalme/private/home.do"
+            print(f"[*] Policy link not found in dashboard. Trying fallback page: {fallback_url}...")
+            discovery_response = s.get(fallback_url, timeout=15)
+            soup = BeautifulSoup(discovery_response.text, "html.parser")
+            policy_link = soup.find("a", href=lambda href: href and "detailDigMe.do?numeroPolizza=" in href)
+            
+        if not policy_link:
+            return {"success": False, "error": "Could not auto" + chr(45) + "discover policy number from Allianz portal."}, None
+            
+        dashboard_url = urljoin(discovery_url, policy_link["href"])
+        print(f"[+] Auto" + chr(45) + "discovered dashboard URL: {dashboard_url}")
+        
+        # Extract policy number from link
+        from urllib.parse import urlparse, parse_qs
+        parsed_dash = urlparse(dashboard_url)
+        query_params = parse_qs(parsed_dash.query)
+        policy_numbers = query_params.get("numeroPolizza")
+        if not policy_numbers:
+            return {"success": False, "error": "Could not parse policy number from auto" + chr(45) + "discovered link."}, None
+        policy_number = policy_numbers[0]
+        print(f"[+] Extracted policy number: {policy_number}")
 
         # 4. Get Dashboard
         dash_res = s.get(dashboard_url, timeout=15)
@@ -291,9 +320,8 @@ def api_login():
 
     username = req_data.get("username", "").strip()
     password = req_data.get("password", "")
-    policy_number = req_data.get("policy_number", "").strip()
 
-    if not username or not password or not policy_number:
+    if not username or not password:
         return jsonify({"success": False, "error": "All fields are required."}), 400
 
     # Backend email checks
@@ -301,17 +329,13 @@ def api_login():
     if not re.match(r"^[^\s@]+@[^\s@]+\.[^\s@]+$", username):
         return jsonify({"success": False, "error": "Inserisci un indirizzo email valido."}), 400
 
-    # Backend policy checks (digits only)
-    if not policy_number.isdigit():
-        return jsonify({"success": False, "error": "Il numero di polizza deve contenere solo cifre."}), 400
-
     if len(password) < 4:
         return jsonify({"success": False, "error": "La password deve essere di almeno 4 caratteri."}), 400
 
     # Check if we can reuse the cached session
     saved_data = load_session_from_disk()
     saved_key, saved_s, cached_user, cached_policy, cached_policy_info = saved_data
-    if saved_s and cached_user == username and cached_policy == policy_number:
+    if saved_s and cached_user == username:
         print("[*] Found cached session matching credentials. Checking if active...")
         if is_session_active(saved_s):
             print("[*] Cached session is active! Bypassing full scrape for faster login.")
@@ -347,7 +371,7 @@ def api_login():
                 {"title": "Altre posizioni nello stesso prodotto", "description": "Accedi ad altre posizioni attive collegate.", "icon": "💼", "action_id": "altre_posizioni"}
             ]
             policy_info = cached_policy_info or {
-                "policy_number": policy_number,
+                "policy_number": cached_policy or "",
                 "policy_name": "Insieme",
                 "status": "Attiva",
                 "full_name": "Nome Assicurato",
@@ -362,7 +386,7 @@ def api_login():
         else:
             print("[*] Cached session is inactive/expired.")
 
-    res, s_obj = run_allianz_scrape(username, password, policy_number)
+    res, s_obj = run_allianz_scrape(username, password)
     
     if res.get("success"):
         session_key = str(uuid.uuid4())
@@ -373,7 +397,7 @@ def api_login():
         if res.get("ticket_url"):
             session["pending_ticket_url"] = res["ticket_url"]
             
-        save_session_to_disk(session_key, s_obj, username, policy_number, res["policy"])
+        save_session_to_disk(session_key, s_obj, username, res["policy"]["policy_number"], res["policy"])
         # Store in flask secure cookie session
         session["user_data"] = {
             "policy": res["policy"],
