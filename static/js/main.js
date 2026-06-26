@@ -37,9 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     overflow${dash}x: auto !important;
                     display: block !important;
                 }
-                .opcontent th,
-                .op${dash}content${dash}container th {
+                .opcontent table, 
+                .op${dash}content${dash}container table {
+                    display: table !important;
+                    width: 100% !important;
+                    table${dash}layout: fixed !important;
+                    word${dash}wrap: break${dash}word !important;
+                    word${dash}break: break${dash}all !important;
+                }
+                .opcontent th, 
+                .opcontent td,
+                .op${dash}content${dash}container th,
+                .op${dash}content${dash}container td {
                     white${dash}space: normal !important;
+                    word${dash}wrap: break${dash}word !important;
+                    word${dash}break: break${dash}all !important;
+                    padding: 0.5rem 0.25rem !important;
+                    font${dash}size: 0.8rem !important;
                 }
                 .searchBody, 
                 .searchBody > tbody > tr, 
@@ -72,6 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
                 const parent = input.parentElement;
                 if (!parent) return;
+                if (parent.tagName.toLowerCase() === "span" && parent.style.whiteSpace === "nowrap") return;
+                
                 const next = input.nextSibling;
                 if (next && next.nodeType === 3) {
                     const text = next.textContent.trim();
@@ -80,10 +96,20 @@ document.addEventListener("DOMContentLoaded", () => {
                         span.textContent = " " + text;
                         span.style.verticalAlign = "middle";
                         span.style.display = "inline-block";
+                        
+                        const wrapper = document.createElement("span");
+                        wrapper.style.display = "inline-block";
+                        wrapper.style.whiteSpace = "nowrap";
+                        wrapper.style.verticalAlign = "middle";
+                        
                         input.style.verticalAlign = "middle";
                         input.style.margin = "0 0.4rem 0 0";
                         input.style.display = "inline-block";
-                        parent.replaceChild(span, next);
+                        
+                        parent.insertBefore(wrapper, input);
+                        wrapper.appendChild(input);
+                        wrapper.appendChild(span);
+                        parent.removeChild(next);
                     }
                 }
             });
