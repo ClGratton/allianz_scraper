@@ -1,4 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Inject mobile spacing and prevent text selection
+    (function() {
+        const style = document.createElement("style");
+        const dash = String.fromCharCode(45);
+        style.textContent = `
+            button, .floating${dash}btn, .category${dash}card, .op${dash}card, .submenu${dash}btn, .btn, .btn${dash}submit, a {
+                user${dash}select: none !important;
+                ${dash}webkit${dash}user${dash}select: none !important;
+            }
+            @media (max${dash}width: 768px) {
+                .dashboard${dash}wrapper {
+                    margin${dash}top: 3.5rem !important;
+                }
+                .container {
+                    margin${dash}top: 3.5rem !important;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    })();
+
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
         loginForm.addEventListener("submit", handleLoginSubmit);
