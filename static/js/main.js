@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 user${dash}select: none !important;
                 ${dash}webkit${dash}user${dash}select: none !important;
             }
+            .opcontent input[type="radio"], 
+            .opcontent input[type="checkbox"],
+            .op${dash}content${dash}container input[type="radio"], 
+            .op${dash}content${dash}container input[type="checkbox"] {
+                vertical${dash}align: middle !important;
+                margin: 0 0.4rem 0 0 !important;
+                cursor: pointer;
+                transform: translateY(1px) !important;
+                ${dash}webkit${dash}transform: translateY(1px) !important;
+            }
             @media (max${dash}width: 768px) {
                 .dashboard${dash}wrapper {
                     margin${dash}top: 3.5rem !important;
@@ -18,11 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 .container {
                     margin${dash}top: 3.5rem !important;
                 }
-                .opcontent, .op${dash}content${dash}container {
+                .opcontent, 
+                .opcontent form,
+                .op${dash}content${dash}container, 
+                .op${dash}content${dash}container form {
                     width: 100% !important;
                     max${dash}width: 100% !important;
                     overflow${dash}x: auto !important;
                     display: block !important;
+                }
+                .opcontent th,
+                .op${dash}content${dash}container th {
+                    white${dash}space: normal !important;
                 }
                 .searchBody, 
                 .searchBody > tbody > tr, 
